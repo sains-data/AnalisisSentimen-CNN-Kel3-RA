@@ -71,6 +71,10 @@ def main():
                     st.write('Review Anda adalah review positif')
                 else:
                     st.write('Review Anda adalah review negatif')
+                
+                # Add "Coba Masukkan Review Lagi" button to refresh everything
+                if st.button('Coba Masukkan Review Lagi'):
+                    st.session_state.prev_user_input = None
             else:
                 st.write("Tidak dapat memproses review Anda.")
         except Exception as e:
