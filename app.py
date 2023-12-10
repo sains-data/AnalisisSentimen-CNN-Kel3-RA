@@ -40,7 +40,7 @@ def review_prediction(review):
     tokenizer.fit_on_texts(norm_docs)
     sequence = tokenizer.texts_to_sequences(norm_docs)
     # Padding
-    pad_sequence = sequence.pad_sequences(sequence, maxlen=200, truncating='post', padding='post')
+    pad_sequence = sequence.pad_sequences(sequence, maxlen=100, truncating='post', padding='post')
     # Predict
     pred = model.predict(pad_sequence)
 
@@ -60,10 +60,11 @@ def main():
     prediksi=''
     if st.button('Prediksi'):
         prediksi = review_prediction(user_input)
-        if prediksi[0][0] > 0.5:
-            st.write('Review Anda **Positif**')
+        pred_converted = [1 if x >= 0.5 else 0 for x in prediksi]
+        if pred_converted == 1:
+            st.write('Review Anda adalah review positif')
         else:
-            st.write('Review Anda **Negatif**')
+            st.write('Review Anda adalah review negatif')
 
 
 if __name__ == '__main__':
