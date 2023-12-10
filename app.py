@@ -60,11 +60,10 @@ def main():
     prediksi=''
     if st.button('Prediksi'):
         prediksi = review_prediction(user_input)
-        pred_converted = [1 if x >= 0.5 else 0 for x in prediksi]
-        if pred_converted == 1:
-            st.write('Review Anda adalah review positif')
+        if prediksi[0][0] > 0.5:
+            st.write('Review Anda **Positif**')
         else:
-            st.write('Review Anda adalah review negatif')
+            st.write('Review Anda **Negatif**')
 
 
 if __name__ == '__main__':
