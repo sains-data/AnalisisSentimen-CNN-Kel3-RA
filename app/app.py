@@ -48,7 +48,7 @@ def main():
     st.title('App Prediksi Sentimen Review')
 
     with open("download.png", "rb") as file:
-    st.image(file, caption='Sentiment Review Amazon app')
+      st.image(file, caption='Sentiment Review Amazon app')
 
 
     # Input review
