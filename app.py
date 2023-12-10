@@ -68,10 +68,8 @@ def main():
             prediksi = review_prediction(user_input, model, tokenizer)
             #ubab tipe data prediksi kedalam float
             prediksi = prediksi.astype(float)
-            #ambil nilai prediksi hanya sebagai array
-            prediksi = prediksi.tolist()
             if prediksi is not None:
-                if prediksi > 0.5:
+                if prediksi >= 0.5:
                     st.write('Review Anda adalah review positif')
                     st.write('Nilai prediksi: ', prediksi)
                 else:
