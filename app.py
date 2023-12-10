@@ -59,6 +59,8 @@ def main():
         try:
             prediksi = review_prediction(user_input, model, tokenizer)
             pred_converted = [1 if x >= 0.5 else 0 for x in prediksi]
+            le=LabelEncoder()
+            pred_converted=le.fit_transform(pred_converted)
             #jika nilai 0 = negatif, jika nilai 1 = positif
             if pred_converted[0] == 0:
                 st.write("Review Anda adalah review negatif")
