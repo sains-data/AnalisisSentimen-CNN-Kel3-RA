@@ -17,7 +17,7 @@ from tensorflow.keras.preprocessing import sequence
 model = tf.keras.models.load_model('model_DL.h5')
 
 # Tokenizer initialization
-max_features = 2000
+max_features = 1000
 max_len = 100
 tokenizer = Tokenizer(num_words=max_features, split=' ')
 
@@ -58,16 +58,11 @@ def main():
     if st.button('Prediksi'):
         try:
             prediksi = review_prediction(user_input, model, tokenizer)
-            pred_converted = [1 if x >= 0.5 else 0 for x in prediksi]
-            le=LabelEncoder()
-            pred_converted=le.fit_transform(pred_converted)
-            #jika nilai 0 = negatif, jika nilai 1 = positif
-            if pred_converted[0] == 0:
-                st.write("Review Anda adalah review negatif")
+            st.write(prediksi)
+            if prediksi[0][0] > prediksi[0][1]:
+                st.write('Review Anda adalah review negatif')
             else:
-                st.write("Review Anda adalah review positif")
-        except Exception as e:
-            st.write("Terjadi kesalahan dalam pemrosesan: ", e)
+                st.write('Review Anda adalah review positif')
 
 if __name__ == '__main__':
     main()
