@@ -3,22 +3,25 @@ import numpy as np
 import tensorflow as tf
 import contractions
 import re
-import tqdm
 import unicodedata
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.preprocessing import LabelEncoder
-import pandas as pd
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing import sequence
+import pickle
 
-# Load model outside of the function for efficiency
+# Load model
 model = tf.keras.models.load_model('model_DL.h5')
 
 # Tokenizer initialization
 max_features = 1000
 max_len = 100
 tokenizer = Tokenizer(num_words=max_features, split=' ')
+
+# Loading the tokenizer
+with open('tokenizer.pickle', 'rb') as handle:
+    tokenizer = pickle.load(handle)
+
+# Define Streamlit app
+st.title("Sentiment Analysis App")
 
 def remove_accented_chars(text):
     """
@@ -47,43 +50,20 @@ def review_prediction(review, model, tokenizer):
 
     # Predicting
     pred = model.predict(X)
-    # nmembuat kode agar pred tidak selalu menyimpan hasil prediksi dari review sebelumnya
     pred = pred[0][0]
     return pred
 
-def main():
-    st.title('App Prediksi Sentimen Review Amazon (hanya tersedia dalam bahasa inggris)')
-
-    # Use st.text_input instead of st.text_area
-    user_input = st.text_input("Masukkan review Anda di sini")
-
-    # Store the previous user input
-    prev_user_input = st.session_state.get('prev_user_input', None)
-
-    # Add a condition to rerun the script when user_input changes
-    if user_input != prev_user_input:
-        st.session_state.prev_user_input = user_input
-
-    if st.button('Prediksi') or user_input != prev_user_input:
-        try:
-            prediksi = review_prediction(user_input, model, tokenizer)
-            #ubab tipe data prediksi kedalam float
-            prediksi = prediksi.astype(float)
-            if prediksi is not None:
-                if prediksi >= 0.5:
-                    st.write('Review Anda adalah review positif')
-                    st.write('Nilai prediksi: ', prediksi)
-                else:
-                    st.write('Review Anda adalah review negatif')
-                    st.write('Nilai prediksi: ', prediksi)
-                
-                # Add "Coba Masukkan Review Lagi" button to refresh everything
-                if st.button('Coba Masukkan Review Lagi'):
-                    st.session_state.prev_user_input = None
-            else:
-                st.write("Tidak dapat memproses review Anda.")
-        except Exception as e:
-            st.write("Terjadi kesalahan dalam pemrosesan: ", e)
-
-if __name__ == '__main__':
-    main()
+# Streamlit UI
+user_input = st.text_input("Enter your review:")
+if st.button("Predict"):
+    try:
+        prediction = review_prediction(user_input, model, tokenizer)
+        prediction = float(prediction)
+        if prediction >= 0.5:
+            st.write('Your review is positive.')
+            st.write('Prediction score:', prediction)
+        else:
+            st.write('Your review is negative.')
+            st.write('Prediction score:', prediction)
+    except Exception as e:
+        st.error("An error occurred during processing: {}".format(e))
