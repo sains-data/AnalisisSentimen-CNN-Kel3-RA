@@ -56,8 +56,14 @@ def main():
     # Use st.text_input instead of st.text_area
     user_input = st.text_input("Masukkan review Anda di sini")
 
+    # Store the previous user input
+    prev_user_input = st.session_state.get('prev_user_input', None)
+
     # Add a condition to rerun the script when user_input changes
-    if st.button('Prediksi'):
+    if user_input != prev_user_input:
+        st.session_state.prev_user_input = user_input
+
+    if st.button('Prediksi') or user_input != prev_user_input:
         try:
             prediksi = review_prediction(user_input, model, tokenizer)
             if prediksi is not None:
