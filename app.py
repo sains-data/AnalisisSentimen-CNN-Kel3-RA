@@ -43,7 +43,9 @@ def review_prediction(review):
     pad_sequence = sequence.pad_sequences(sequence, maxlen=200, truncating='post', padding='post')
     # Predict
     pred = model.predict(pad_sequence)
-    return pred
+
+    return pred, review
+
 
 
 def main():
@@ -52,25 +54,16 @@ def main():
     # with open("download.png", "rb") as file:
     #   st.image(file, caption='Sentiment Review Amazon app')
 
-
     # Input review
     user_input = st.text_area("Masukkan review Anda di sini")
 
+    prediksi=''
     if st.button('Prediksi'):
-        # Prediksi
-        pred = review_prediction([user_input])
-        pred_label = np.argmax(pred)
-
-        # Tampilkan hasil
-        if pred_label == 0:
-            st.write('Review Anda: ', user_input)
-            st.write('Hasil prediksi: Negative')
-        else :
-            st.write('Review Anda: ', user_input)
-            st.write('Hasil prediksi: Positive')
-        
-        # Tampilkan probabilitas
-        st.write('Probabilitas: ', pred)
+        prediksi = review_prediction(user_input)
+        if prediksi[0][0][0] > 0.5:
+            st.write('Review Anda positif')
+        else:
+            st.write('Review Anda negatif')
 
 
 if __name__ == '__main__':
