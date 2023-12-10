@@ -32,20 +32,22 @@ def pre_process_corpus(docs):
 
 
 #creating function predict with user input preprocessing
-def review_prediction(input_data):
-  norm_input_data = pre_process_corpus(input_data)
-  tokenizer = Tokenizer(num_words=5000)
-  tokenizer.fit_on_texts(norm_input_data)
-  input_data = tokenizer.texts_to_sequences(norm_input_data)
-  input_data = sequence.pad_sequences(input_data, maxlen=500)
-  prediction = model.predict(input_data)
-  return prediction
-
-    
+def review_prediction(review):
+    # Preprocessing
+    norm_docs = pre_process_corpus(review)
+    # Tokenizing
+    tokenizer = Tokenizer(num_words=5000, oov_token='x')
+    tokenizer.fit_on_texts(norm_docs)
+    sequence = tokenizer.texts_to_sequences(norm_docs)
+    # Padding
+    pad_sequence = sequence.pad_sequences(sequence, maxlen=200, truncating='post', padding='post')
+    # Predict
+    pred = model.predict(pad_sequence)
+    return pred
 
 
 def main():
-    st.title('App Prediksi Sentimen Review')
+    st.title('App Prediksi Sentimen Review (hanya tersedia dalam bahasa inggris)')
 
     # with open("download.png", "rb") as file:
     #   st.image(file, caption='Sentiment Review Amazon app')
@@ -55,7 +57,7 @@ def main():
     user_input = st.text_area("Masukkan review Anda di sini")
 
     if st.button('Prediksi'):
-        # Prediksi review
+        # Prediksi
         pred = review_prediction([user_input])
         pred_label = np.argmax(pred)
 
