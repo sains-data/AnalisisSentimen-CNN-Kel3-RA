@@ -44,7 +44,7 @@ def review_prediction(review):
     # Predict
     pred = model.predict(pad_sequence)
 
-    return pred, review
+    return pred
 
 
 
