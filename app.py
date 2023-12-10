@@ -33,6 +33,11 @@ model = tf.keras.models.load_model('model_DL.h5')
 
 #creating function predict with user input preprocessing
 def review_prediction(review):
+    def remove_accented_chars(text):
+        text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('utf-8', 'ignore')
+        return text
+    
+    doc = remove_accented_chars(review)
     # Preprocessing
     norm_docs = []
     doc = review.translate(review.maketrans("\n\t\r", "   "))
