@@ -12,6 +12,7 @@ import pandas as pd
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing import sequence
 
+@st.cache(allow_output_mutation=True)
 
 # Load model outside of the function for efficiency
 model = tf.keras.models.load_model('model_DL.h5')
