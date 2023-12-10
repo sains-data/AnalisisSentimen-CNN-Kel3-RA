@@ -59,7 +59,7 @@ def main():
         try:
             prediksi = review_prediction(user_input, model, tokenizer)
             pred_converted = [1 if x >= 0.5 else 0 for x in prediksi]
-            if prediksi >= 0.5:
+            if prediksi == 1:
                 st.write("Review Anda bernada positif")
             else:
                 st.write("Review Anda bernada negatif")
