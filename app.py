@@ -21,7 +21,7 @@ with open('tokenizer.pickle', 'rb') as handle:
     tokenizer = pickle.load(handle)
 
 # Define Streamlit app
-st.title("Sentiment Analysis App")
+st.title("Binary Text Classification Amazon Reviews App (sentiment analysis))")
 
 def remove_accented_chars(text):
     """
