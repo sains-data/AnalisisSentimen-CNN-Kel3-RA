@@ -56,7 +56,7 @@ def review_prediction(review):
     # Predicting
     pred = model.predict(X)
     return pred
-    
+
 
 
 
@@ -71,12 +71,11 @@ def main():
 
     prediksi=''
     if st.button('Prediksi'):
-        prediksi = review_prediction(user_input)
-        if prediksi[0][0][0] > 0.5:
-            st.write('Review Anda positif')
+        prediksi = review_prediction([user_input])
+        if prediksi[0][0] > 0.5:
+            st.write('Review Anda adalah review positif')
         else:
-            st.write('Review Anda negatif')
-
+            st.write('Review Anda adalah review negatif')
 
 if __name__ == '__main__':
     main()
