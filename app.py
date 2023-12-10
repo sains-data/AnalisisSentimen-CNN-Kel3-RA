@@ -59,10 +59,11 @@ def main():
         try:
             prediksi = review_prediction(user_input, model, tokenizer)
             pred_converted = [1 if x >= 0.5 else 0 for x in prediksi]
-            if prediksi == 1:
-                st.write("Review Anda bernada positif")
+            #jika nilai 0 = negatif, jika nilai 1 = positif
+            if pred_converted[0] == 0:
+                st.write("Review Anda adalah review negatif")
             else:
-                st.write("Review Anda bernada negatif")
+                st.write("Review Anda adalah review positif")
         except Exception as e:
             st.write("Terjadi kesalahan dalam pemrosesan: ", e)
 
