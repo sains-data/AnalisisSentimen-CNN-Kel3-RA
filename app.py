@@ -48,6 +48,8 @@ def review_prediction(review, model, tokenizer):
 
     # Predicting
     pred = model.predict(X)
+    # nmembuat kode agar pred tidak selalu menyimpan hasil prediksi dari review sebelumnya
+    pred = pred[0][0]
     return pred
 
 def main():
