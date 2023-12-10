@@ -13,48 +13,36 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing import sequence
 
 
+# Load model outside of the function for efficiency
 model = tf.keras.models.load_model('model_DL.h5')
 
-# def pre_process_corpus(docs):
-#   norm_docs = []
-#   for doc in tqdm.tqdm(docs):
-#     doc = doc.translate(doc.maketrans("\n\t\r", "   "))
-#     doc = doc.lower()
-#     doc = remove_accented_chars(doc)
-#     doc = contractions.fix(doc)
-#     # lower case and remove special characters\whitespaces
-#     doc = re.sub(r'[^a-zA-Z0-9\s]', '', doc, re.I|re.A)
-#     doc = re.sub(' +', ' ', doc)
-#     doc = doc.strip()
-#     norm_docs.append(doc)
+# Tokenizer initialization
+max_features = 2000
+max_len = 200
+tokenizer = Tokenizer(num_words=max_features, split=' ')
 
-#   return norm_docs
+def remove_accented_chars(text):
+    """
+    Removes accented characters from text.
+    """
+    text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('utf-8', 'ignore')
+    return text
 
-
-#creating function predict with user input preprocessing
-def review_prediction(review):
-    def remove_accented_chars(text):
-        text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('utf-8', 'ignore')
-        return text
-    
-    doc = remove_accented_chars(review)
+def review_prediction(review, model, tokenizer):
+    """
+    Predicts the sentiment of the review.
+    """
     # Preprocessing
-    norm_docs = []
     doc = review.translate(review.maketrans("\n\t\r", "   "))
     doc = doc.lower()
     doc = remove_accented_chars(doc)
     doc = contractions.fix(doc)
-    # lower case and remove special characters\whitespaces
     doc = re.sub(r'[^a-zA-Z0-9\s]', '', doc, re.I|re.A)
     doc = re.sub(' +', ' ', doc)
     doc = doc.strip()
-    norm_docs.append(doc)
+    norm_docs = [doc]
 
     # Tokenizing
-    max_features = 2000
-    max_len = 200
-    tokenizer = Tokenizer(num_words=max_features, split=' ')
-    tokenizer.fit_on_texts(norm_docs)
     X = tokenizer.texts_to_sequences(norm_docs)
     X = sequence.pad_sequences(X, maxlen=max_len)
 
@@ -62,25 +50,20 @@ def review_prediction(review):
     pred = model.predict(X)
     return pred
 
-
-
-
 def main():
-    st.title('App Prediksi Sentimen Review (hanya tersedia dalam bahasa inggris)')
+    st.title('App Prediksi Sentimen Review Amazon (hanya tersedia dalam bahasa inggris)')
 
-    # with open("download.png", "rb") as file:
-    #   st.image(file, caption='Sentiment Review Amazon app')
-
-    # Input review
     user_input = st.text_area("Masukkan review Anda di sini")
 
-    prediksi=''
     if st.button('Prediksi'):
-        prediksi = review_prediction([user_input])
-        if prediksi[0][0] > 0.5:
-            st.write('Review Anda adalah review positif')
-        else:
-            st.write('Review Anda adalah review negatif')
+        try:
+            prediksi = review_prediction(user_input, model, tokenizer)
+            if prediksi[0][0] > 0.5:
+                st.write('Review Anda adalah review positif')
+            else:
+                st.write('Review Anda adalah review negatif')
+        except Exception as e:
+            st.write("Terjadi kesalahan dalam pemrosesan: ", e)
 
 if __name__ == '__main__':
     main()
