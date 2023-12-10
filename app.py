@@ -53,18 +53,22 @@ def review_prediction(review, model, tokenizer):
 def main():
     st.title('App Prediksi Sentimen Review Amazon (hanya tersedia dalam bahasa inggris)')
 
-    user_input = st.text_area("Masukkan review Anda di sini")
+    # Use st.text_input instead of st.text_area
+    user_input = st.text_input("Masukkan review Anda di sini")
 
+    # Add a condition to rerun the script when user_input changes
     if st.button('Prediksi'):
         try:
             prediksi = review_prediction(user_input, model, tokenizer)
-            st.write(prediksi)
-            if prediksi[0][0] > prediksi[0][1]:
-                st.write('Review Anda adalah review negatif')
+            if prediksi is not None:
+                if prediksi[0][0] > 0.5:
+                    st.write('Review Anda adalah review positif')
+                else:
+                    st.write('Review Anda adalah review negatif')
             else:
-                st.write('Review Anda adalah review positif')
-        except:
-            st.write('Masukkan review Anda di sini')
-            
+                st.write("Tidak dapat memproses review Anda.")
+        except Exception as e:
+            st.write("Terjadi kesalahan dalam pemrosesan: ", e)
+
 if __name__ == '__main__':
     main()
