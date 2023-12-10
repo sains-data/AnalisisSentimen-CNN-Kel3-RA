@@ -63,6 +63,8 @@ def main():
                 st.write('Review Anda adalah review negatif')
             else:
                 st.write('Review Anda adalah review positif')
-
+        except:
+            st.write('Masukkan review Anda di sini')
+            
 if __name__ == '__main__':
     main()
