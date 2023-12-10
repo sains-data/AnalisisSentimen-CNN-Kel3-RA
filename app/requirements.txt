@@ -8,7 +8,6 @@ certifi==2023.11.17
 cffi==1.15.1
 charset-normalizer==3.3.2
 click==8.1.7
-command-not-found==0.3
 contractions==0.1.73
 cryptography==39.0.1
 dbus-python==1.2.18
