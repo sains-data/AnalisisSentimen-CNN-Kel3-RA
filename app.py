@@ -47,8 +47,8 @@ def review_prediction(input_data):
 def main():
     st.title('App Prediksi Sentimen Review')
 
-    with open("download.png", "rb") as file:
-      st.image(file, caption='Sentiment Review Amazon app')
+    # with open("download.png", "rb") as file:
+    #   st.image(file, caption='Sentiment Review Amazon app')
 
 
     # Input review
@@ -72,4 +72,4 @@ def main():
 
 
 if __name__ == '__main__':
-     main()   
+    main()
