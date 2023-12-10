@@ -18,7 +18,7 @@ model = tf.keras.models.load_model('model_DL.h5')
 
 # Tokenizer initialization
 max_features = 2000
-max_len = 200
+max_len = 100
 tokenizer = Tokenizer(num_words=max_features, split=' ')
 
 def remove_accented_chars(text):
