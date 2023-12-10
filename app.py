@@ -71,10 +71,12 @@ def main():
             #ambil nilai prediksi hanya sebagai array
             prediksi = prediksi.tolist()
             if prediksi is not None:
-                if prediksi[0][0] > 0.5:
+                if prediksi > 0.5:
                     st.write('Review Anda adalah review positif')
+                    st.write('Nilai prediksi: ', prediksi)
                 else:
                     st.write('Review Anda adalah review negatif')
+                    st.write('Nilai prediksi: ', prediksi)
                 
                 # Add "Coba Masukkan Review Lagi" button to refresh everything
                 if st.button('Coba Masukkan Review Lagi'):
