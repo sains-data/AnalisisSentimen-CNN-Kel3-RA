@@ -66,6 +66,10 @@ def main():
     if st.button('Prediksi') or user_input != prev_user_input:
         try:
             prediksi = review_prediction(user_input, model, tokenizer)
+            #ubab tipe data prediksi kedalam float
+            prediksi = prediksi.astype(float)
+            #ambil nilai prediksi hanya sebagai array
+            prediksi = prediksi.tolist()
             if prediksi is not None:
                 if prediksi[0][0] > 0.5:
                     st.write('Review Anda adalah review positif')
