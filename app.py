@@ -21,7 +21,7 @@ with open('tokenizer.pickle', 'rb') as handle:
     tokenizer = pickle.load(handle)
 
 # Define Streamlit app
-st.title("Binary Text Classification Amazon Reviews App (sentimen)")
+st.title("Binary Text Classification Amazon Reviews App With CNN(Sentiment Analysis)")
 st.caption('Hanya tersedia dalam review bahasa Inggris')
 
 st.image('download.png', caption='KELOMPOK 3 RA')
