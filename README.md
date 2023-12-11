@@ -12,4 +12,4 @@ Dengan Anggota kelompok 3 RA :
 Pemodelan ini sudah disimpan dan kemudian dilakukan deployment menjadi sebuah web app untuk dapat menerapkannya menggunakan data baru berasal dari inputan user.
 Dapat diakses melalui link dibawah ini :
 
-https://reviewamazonkelompok3.streamlit.app/
+https://reviewamazonkel3.streamlit.app/
