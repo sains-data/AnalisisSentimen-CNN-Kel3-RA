@@ -24,7 +24,7 @@ with open('tokenizer.pickle', 'rb') as handle:
 st.title("Binary Text Classification Amazon Reviews App (sentimen)")
 st.caption('Hanya tersedia dalam review bahasa Inggris')
 
-st.image('download.png', caption='KELOMPOK 3 RA', width=200)
+st.image('download.png', caption='KELOMPOK 3 RA')
 
 def remove_accented_chars(text):
     """
