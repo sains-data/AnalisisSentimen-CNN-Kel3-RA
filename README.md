@@ -9,6 +9,19 @@ Dengan Anggota kelompok 3 RA :
 - Nabilah Wahyu Hafizhah - 120450106
 - Lanang Almasyuri - 120450109
 
+Cara install Aplikasi ini :
+clone github
+git clone https://github.com/lngalmsyr/AnalisisSentimen-CNN-Kel3-RA.git
+
+install requirment txt 
+pip install -r requirements.txt
+
+jalan kan aplikasi 
+streamlit run app.py 
+
+===================================
+
+
 Pemodelan ini sudah disimpan dan kemudian dilakukan deployment menjadi sebuah web app untuk dapat menerapkannya menggunakan data baru berasal dari inputan user.
 Dapat diakses melalui link dibawah ini :
 
