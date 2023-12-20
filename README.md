@@ -30,3 +30,11 @@ Pemodelan ini sudah disimpan dan kemudian dilakukan deployment menjadi sebuah we
 Dapat diakses melalui link dibawah ini :
 
 https://reviewamazonkel3.streamlit.app/
+
+
+contoh input user berupa review :
+
+I am very disappointed with my recent purchase. The laptop I bought is extremely slow and crashes frequently. The battery life is nowhere near what was advertised, and the customer support was unhelpful and rude. Definitely not worth the money
+
+
+"I purchased this product, and it was a total disappointment. The build quality was poor, and it broke within a week of use. I wouldn't recommend it to anyone."
